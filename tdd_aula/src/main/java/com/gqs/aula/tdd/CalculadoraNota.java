@@ -6,8 +6,11 @@ public class CalculadoraNota {
         return (a1 + a2 + a3);
     }
 
-    public boolean estaAprovadoPorNota(double notaFinal) {
-        return notaFinal >= 70;
-    }
+    public static final double NOTA_MINIMA_APROVACAO = 70;
 
+    public boolean estaAprovadoPorNota(double notaFinal) {
+
+        return notaFinal >= NOTA_MINIMA_APROVACAO;
+        
+    }
 }
