@@ -41,7 +41,7 @@ public class CalculadoraNota {
         }
     }
 
-     public boolean podeFazerAI(double a1, double a2, double a3, double frequencia) {
+    public boolean podeFazerAI(double a1, double a2, double a3, double frequencia) {
         double notaFinal = a1 + a2 + a3;
 
         if (notaFinal >= 70) {
@@ -58,7 +58,26 @@ public class CalculadoraNota {
 
         return condicao1 || condicao2;
     }
+
+    public double aplicarAI(double a1, double a2, double a3, double notaAI) {
+        if (notaAI < 0 || notaAI > 30) {
+            throw new IllegalArgumentException("Nota da AI deve estar entre 0 e 30.");
+        }
+
+        double menor = Math.min(a1, a2);
+
+        if (notaAI > menor) {
+            if (menor == a1) {
+                a1 = notaAI;
+            } else {
+                a2 = notaAI;
+            }
+        }
+
+        return a1 + a2 + a3;
+    }
 }
+
 
 
 
