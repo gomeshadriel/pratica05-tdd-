@@ -7,78 +7,28 @@ public class CalculadoraNotaTest {
 
     CalculadoraNota calc = new CalculadoraNota();
 
-    @Test
-    void deveSomarAsTresNotas() {
-        double resultado = calc.calcularNotaFinal(20, 20, 30);
-        assertEquals(70, resultado);
-    }
-
-    @Test
-    void deveSomarOutrasNotas() {
-        double resultado = calc.calcularNotaFinal(10, 15, 25);
-        assertEquals(50, resultado);
-    }
-
-    @Test
-        void deveAprovarComNota70() {
-        assertTrue(calc.estaAprovadoPorNota(70));
-    }
-
-    @Test
-        void deveReprovarComNota69() {
-        assertFalse(calc.estaAprovadoPorNota(69));
-    }
-
-    @Test
-    void deveRejeitarA1MaiorQue30() {
-        assertThrows(IllegalArgumentException.class,
-        () -> calc.calcularNotaFinal(35, 20, 30));
-
-    }
-
-    @Test
-    void deveRejeitarA2MaiorQue30() {
-        assertThrows(IllegalArgumentException.class,
-            () -> calc.calcularNotaFinal(20, 35, 30));
-    }
-
-    @Test
-    void deveRejeitarA3MaiorQue40() {
-        assertThrows(IllegalArgumentException.class,
-            () -> calc.calcularNotaFinal(20, 20, 41));
-    }
-
-    @Test
-    void deveRejeitarA1Negativa() {
-        assertThrows(IllegalArgumentException.class,
-            () -> calc.calcularNotaFinal(-1, 20, 30));
-    }
-    
-    @Test
-    void deveAceitarNotasMaximas() {
-        assertDoesNotThrow(
-            () -> calc.calcularNotaFinal(30, 30, 40));
-    }
+    // Testes para o método situacao
 
     @Test
     void deveAprovarComNotaEFrequenciaSuficientes() {
-        assertEquals("APROVADO", calc.calcular(80, 90));
+        assertEquals(CalculadoraNota.APROVADO, calc.situacao(80, 90));
     }
 
     @Test
-    void deveReprovarComNotaBaixa() {
-        assertEquals("REPROVADO", calc.calcular(60, 90));
+    void deveReprovarPorNota() {
+        assertEquals(CalculadoraNota.REPROVADO_POR_NOTA, calc.situacao(60, 90));
     }
 
     @Test
-    void deveReprovarPorFrequenciaMesmoComNotaAlta() {
-        assertEquals("REPROVADO", calc.calcular(95, 74));
+    void deveReprovarPorFaltaMesmoComNotaAlta() {
+        assertEquals(CalculadoraNota.REPROVADO_POR_FALTA, calc.situacao(95, 74));
     }
 
     @Test
-    void deveAprovarComFrequenciaExatamente75() {
-        assertEquals("APROVADO", calc.calcular(70, 75));
+    void deveReprovarPorFaltaComNotaEFrequenciaBaixa() {
+        assertEquals(CalculadoraNota.REPROVADO_POR_FALTA, calc.situacao(50, 60));
     }
+
 
     @Test
     void testePodeFazerAI_Caso1() {
@@ -105,6 +55,7 @@ public class CalculadoraNotaTest {
         assertFalse(calc.podeFazerAI(5, 5, 30, 80)); // A1 + A3 = 35 e A2 + A3 = 35
     }
 
+
     @Test
     void substituiA1() {
         double resultado = calc.aplicarAI(10, 20, 30, 25);
@@ -129,5 +80,4 @@ public class CalculadoraNotaTest {
             calc.aplicarAI(10, 20, 30, 35);
         });
     }
-    
 }

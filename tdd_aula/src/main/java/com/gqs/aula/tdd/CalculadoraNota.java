@@ -2,56 +2,32 @@ package com.gqs.aula.tdd;
 
 public class CalculadoraNota {
 
-    public static final double NOTA_MAXIMA_A1 = 30;
-    public static final double NOTA_MAXIMA_A2 = 30;
-    public static final double NOTA_MAXIMA_A3 = 40;
-
-    public double calcularNotaFinal(double a1, double a2, double a3) {
-        
-        validarNota(a1, 30, "A1");
-        validarNota(a2, 30, "A2");
-        validarNota(a3, 40, "A3");
-
-        return a1 + a2 + a3;
-    }
-
-    private void validarNota(double nota, double notaMaxima, String nomeAvaliacao) {
-        if (nota < 0 || nota > notaMaxima) {
-            throw new IllegalArgumentException(
-            nomeAvaliacao + " deve estar entre 0 e " + notaMaxima);
-
-        }
-    }
-
-    public static final double NOTA_MINIMA_APROVACAO = 70;
-
-    public boolean estaAprovadoPorNota(double notaFinal) {
-
-        return notaFinal >= NOTA_MINIMA_APROVACAO;
-        
-    }
-
     public static final int FREQUENCIA_MINIMA = 75;
 
-    public String calcular(int notaFinal, int frequencia) {
-        if (notaFinal >= 70 && frequencia >= FREQUENCIA_MINIMA) {
-            return "APROVADO";
-        } else {
-            return "REPROVADO";
+    public static final String APROVADO = "APROVADO";
+    public static final String REPROVADO_POR_FALTA = "REPROVADO POR FALTA";
+    public static final String REPROVADO_POR_NOTA = "REPROVADO POR NOTA";
+
+    public String situacao(int nota, int frequencia) {
+        if (frequencia < FREQUENCIA_MINIMA) {
+            return REPROVADO_POR_FALTA;
         }
+        if (nota >= 70) {
+            return APROVADO;
+        }
+        return REPROVADO_POR_NOTA;
     }
 
     public boolean podeFazerAI(double a1, double a2, double a3, double frequencia) {
         double notaFinal = a1 + a2 + a3;
 
         if (notaFinal >= 70) {
-            return false;
+            return false; 
         }
 
         if (frequencia < FREQUENCIA_MINIMA) {
-            return false;
+            return false; 
         }
-
 
         boolean condicao1 = (a1 + a3) >= 40;
         boolean condicao2 = (a2 + a3) >= 40;
@@ -77,7 +53,3 @@ public class CalculadoraNota {
         return a1 + a2 + a3;
     }
 }
-
-
-
-
